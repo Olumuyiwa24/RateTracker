@@ -16,7 +16,7 @@ export default function Conversio () {
             </div>
             
             
-        <div className="pt-1 pb-2">
+        <div className=" pb-2">
             
             <h2 className="text-xl text-emerald-600 font-serif">Converxio</h2>
         </div>

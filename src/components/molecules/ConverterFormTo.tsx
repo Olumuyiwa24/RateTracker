@@ -16,21 +16,17 @@ interface ConverterFormToProps {
         <div>
             <div className="flex justify-cent items-center bg-slate-100 rounded-xl mx-20 mb-5 ">
             
-                <span className="sm:ml-24 mb-10 relative right-8 min-[660px]:left-0">
+                <span className="sm:ml-20 ml-[-60px] mb-10 ">
                 
                     <SelectDropDown
                     label="To"
                     id="to"
-                    
                     onChange={onChange}
                     value={toCurrency}
                     options = {options}
                     
                 />
                 </span>
-               
-            
-        
             </div>
         </div>
     )

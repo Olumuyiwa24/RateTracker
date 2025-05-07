@@ -29,7 +29,7 @@ const currencySlice = createSlice({
         }
     },
 
-    //extra reducers
+    //extra reducers for handling asynchronious actions
     extraReducers: (builder) => {
         builder
           .addCase(fetchCurrencyRates.pending, (state) => {

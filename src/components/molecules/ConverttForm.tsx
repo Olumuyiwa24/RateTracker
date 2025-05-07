@@ -24,6 +24,9 @@ function ConverttFormParent() {
 
     const [hasConverted, setHasConverted ] = useState(false)
 
+    //state to hold amountError
+    // const [amountError, setAmountError] = useState()
+
     //Hook to dispatch redux actions
     const dispatch= useDispatch<AppDispatch>()
 
@@ -74,10 +77,10 @@ function ConverttFormParent() {
    }, [amount,rates, toCurrency, hasConverted])
 
    // Swap handler
-const handleSwap = () => {
-    const change = fromCurrency;
-    setFromCurrency(toCurrency);
-    setToCurrency(change);
+    const handleSwap = () => {
+        const swapCurrency = fromCurrency;
+        setFromCurrency(toCurrency);
+        setToCurrency(swapCurrency);
     
   };
 
@@ -108,7 +111,7 @@ const handleSwap = () => {
  
   return (
     <div>
-        {status === 'loading' && <p>Fetching currency rates...</p>}
+        {/* {status === 'loading' && <p>Fetching currency rates...</p>} */}
         {status === 'failed' && <p>Failed to load rates</p>}
         {}
         <ConverterForm amount = {amount} onChangeAmount = {handleAmount} onChange = {handleFromCurrencyChange} fromCurrency= {fromCurrency} options = {currencyOptions}/>
@@ -117,7 +120,7 @@ const handleSwap = () => {
 
         {/* show conversion result in the UI if available */}
         {
-            convertedAmount !== null && hasConverted && (
+            convertedAmount !== null && hasConverted && status !== 'failed' && (
                 <div className="font-mono p-2 text-green-300 bg-black rounded-lg focus:ring mx-2 my-2">
                     {amount} {fromCurrency} = {convertedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {toCurrency}
                 </div>

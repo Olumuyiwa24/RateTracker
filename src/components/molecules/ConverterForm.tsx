@@ -17,7 +17,7 @@ interface ConverterFormFromProps {
 
     return (
         <div>
-            <div className="flex pt-10 pr-10 flex-col justify-center items-center bg-slate-100 rounded-xl mx-20 mb-5">
+            <div className="    flex pt-2 pr-10 flex-col justify-center items-center bg-slate-100 rounded-xl mx-20 mb-2">
         {
             
                 <SelectDropDown
