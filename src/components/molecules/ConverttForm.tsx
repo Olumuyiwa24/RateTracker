@@ -9,7 +9,14 @@ import type { AppDispatch } from "../../store/store";
 import type { RootState } from "../../store/store";
 
 
+
+
 function ConverttFormParent() {
+
+    
+
+
+
     // State to hold the amount entered by the user
     const[amount, setAmount]= useState('');
 
@@ -43,7 +50,7 @@ function ConverttFormParent() {
     useEffect(() => {
         if(rates&& Object.keys(rates).length > 0) {
             setFromCurrency(Object.keys(rates)[0])
-    }}, [rates])
+    }},[rates])
 
     // dropdown options for the select components
    const currencyOptions = Object.keys(rates || {}).map((currency) => ({
@@ -58,6 +65,7 @@ function ConverttFormParent() {
         const result = parseFloat(amount)  * rate
         setConvertedAmount(result)
         setHasConverted(true)
+
         
     }
     
@@ -113,7 +121,7 @@ function ConverttFormParent() {
     <div>
         {/* {status === 'loading' && <p>Fetching currency rates...</p>} */}
         {status === 'failed' && <p>Failed to load rates</p>}
-        {}
+        
         <ConverterForm amount = {amount} onChangeAmount = {handleAmount} onChange = {handleFromCurrencyChange} fromCurrency= {fromCurrency} options = {currencyOptions}/>
         <LiveRate onChange = {handleSwap}/>
         <ConverterFormTo options = {currencyOptions} onChange = {handleToCurrencyChange} toCurrency = {toCurrency} />

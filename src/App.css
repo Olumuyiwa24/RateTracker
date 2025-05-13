@@ -9,12 +9,20 @@
 }
 body{
  
-  background-image: url(./assets/jpeg2.jpg);
+  /* background-image: url(./assets/jpeg2.jpg); */
+  background : linear-gradient(to right, #2e3c18, #a5821a);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100vh;
+  height:100vh;
 }
+
+/* @media (max-width: 800px) and (max-width: 1024px) {
+  body{
+    height:100vh;
+    background-repeat: repeat-y;
+  }
+} */
 
 
 

@@ -38,7 +38,7 @@ export default function SelectDropDown ({label, id,options = [], value, onChange
                     
                         (options?.map((opt) => (
                             
-                            <option value={opt.value} key={opt.value} className="bg-gray-500">
+                        <option value={opt.value} key={opt.value} className="bg-gray-500">
                                 {opt.label}
                             </option>
                         ))
