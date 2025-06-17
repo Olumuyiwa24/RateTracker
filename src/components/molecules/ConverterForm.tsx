@@ -17,7 +17,7 @@ interface ConverterFormFromProps {
 
     return (
         <div>
-            <div className="    flex pt-2 pr-10 flex-col justify-center items-center bg-slate-100 rounded-xl mx-20 mb-2">
+            <div className="flex flex-col justify-center items-center bg-slate-100 rounded-xl mx-4 sm:mx-8 md:mx-16 lg:mx-20 p-4 sm:p-6 md:p-8">
         {
             
                 <SelectDropDown
@@ -35,7 +35,6 @@ interface ConverterFormFromProps {
                 label="Enter Amount"
                 id="Amount"
                 onChange={onChangeAmount}
-        
             />
             </div>
         </div>

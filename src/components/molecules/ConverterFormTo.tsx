@@ -14,19 +14,14 @@ interface ConverterFormToProps {
 
     return (
         <div>
-            <div className="flex justify-cent items-center bg-slate-100 rounded-xl mx-20 mb-5 ">
-            
-                <span className="sm:ml-20 ml-[-60px] mb-10 ">
-                
-                    <SelectDropDown
+            <div className="flex justify-center items-center bg-slate-100 rounded-xl mx-4 sm:mx-8 md:mx-16 lg:mx-20 p-4 sm:p-6 md:p-8">
+                <SelectDropDown
                     label="To"
                     id="to"
                     onChange={onChange}
                     value={toCurrency}
-                    options = {options}
-                    
+                    options={options}
                 />
-                </span>
             </div>
         </div>
     )

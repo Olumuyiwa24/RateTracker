@@ -8,7 +8,7 @@ type InputFieldProps = {
 
 export default function InputField({label, id, value, onChange, placeholder} : InputFieldProps) {
     return (
-        <div className="p-8 lg:pl-20 pl-18 md:flex flex flex-col justify-center text-center relative top-[-50px]">
+        <div className="p-8   md:flex flex flex-col justify-center text-center relative top-[-50px]">
             <label htmlFor={id} className="block text-sm font-medium text-gray-800 mt-10">
                 {label}
             </label>

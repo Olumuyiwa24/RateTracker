@@ -130,7 +130,7 @@ function ConverttFormParent() {
         {
             convertedAmount !== null && hasConverted && status !== 'failed' && (
                 <div className="font-mono p-2 text-green-300 bg-black rounded-lg focus:ring mx-2 my-2">
-                    {amount} {fromCurrency} = {convertedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {toCurrency}
+                    {amount} {fromCurrency} = {toMoney(convertedAmount)} {toCurrency}
                 </div>
             )
         }
@@ -141,3 +141,15 @@ function ConverttFormParent() {
 }
 
 export default ConverttFormParent
+
+//new addition to format the converted amount to money
+const toMoney = (value: string | number) => {
+    const numValue = typeof value === 'string' ? parseFloat(value) : value;
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'NGN',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+    return formatter.format(numValue).replace("NGN", "").trim();
+}

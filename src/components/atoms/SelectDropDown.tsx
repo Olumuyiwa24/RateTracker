@@ -15,7 +15,7 @@ type SelectDropDownProps = {
 export default function SelectDropDown ({label, id,options = [], value, onChange}: SelectDropDownProps) {
     // console.log('options:', options)
     return (
-        <div className="grid min-w-[40%] sm:min-w-[40%]  md:min-w-[10%] grid-cols rounded-md relative left-5 gap-4 bg-gray-500 mt-6 text-center">
+        <div className="grid min-w-[40%] sm:min-w-[40%]  md:min-w-[10%] grid-cols rounded-md relative  gap-4 bg-gray-500 mt-6 text-center">
             <div className="py-[12px] px-6">
                 <label htmlFor={id} className="text-white text-sm">
                     {label}

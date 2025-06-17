@@ -32,9 +32,9 @@ const Features = () => {
             <span>
                 <h2 className="font-serif text-xl p-4">Core Features</h2>
                 <div className="font-mono flex flex-col text-white gap-4 sm:flex-row mx-8">
-                    <p className="bg-amber-700 rounded-lg p-4 text-sm">Real-time currency conversion</p>
-                    <p className="bg-amber-700 rounded-lg p-4 text-sm">Clean and responsive UI</p>
-                    <p className="bg-amber-700 rounded-lg p-4 text-sm">Mobile-first design</p>
+                    <p className="bg-amber-700 rounded-lg p-4 text-sm hover:scale-105 transform transition-all">Real-time currency conversion</p>
+                    <p className="bg-amber-700 rounded-lg p-4 text-sm hover:scale-105 transform transition-all">Clean and responsive UI</p>
+                    <p className="bg-amber-700 rounded-lg p-4 text-sm hover:scale-105 transform transition-all">Mobile-first design</p>
                 </div>
             </span>
         </div>
