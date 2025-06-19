@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import ConvertFooter from "../atoms/ConvertFooter"
-
-import ConverterForm from "./ConverterForm";
-import ConverterFormTo from "./ConverterFormTo";
-import LiveRate from "../atoms/ConvertRate";
-
+import ConvertFooter from "../atoms/Footer"
+import LiveRate from "../atoms/SwapRate";
 import { formatCurrency } from "../../utils/exchange" //// Importing the toMoney function to format the converted amount
-import { useGetRatesQuery } from "../../store/currencyAPI";
+import { useGetRatesQuery } from "../../features/currencyAPI";
+import FromCurrencySelector from "../molecules/FromCurrencySelector";
+import ToCurrencySelector from "../molecules/ToCurrencySelector";
 
 
 
 
-function ConverttFormParent() {
+function CurrencyConverter() {
  
 
     // State to hold the amount entered by the user
@@ -116,9 +114,9 @@ function ConverttFormParent() {
         {error && <p>Failed to load rates</p>}
         {!isOnline && <p>You are offline. Some features may not work.</p>}
         
-        <ConverterForm amount = {amount} onChangeAmount = {handleAmount} disabled={!!error} onChange = {handleFromCurrencyChange} fromCurrency= {fromCurrency} options = {currencyOptions}/>
+        <FromCurrencySelector amount = {amount} onChangeAmount = {handleAmount} disabled={!!error} onChange = {handleFromCurrencyChange} fromCurrency= {fromCurrency} options = {currencyOptions}/>
         <LiveRate onChange = {handleSwap}/>
-        <ConverterFormTo options = {currencyOptions} disabled={!!error} onChange = {handleToCurrencyChange} toCurrency = {toCurrency} />
+        <ToCurrencySelector options = {currencyOptions} disabled={!!error} onChange = {handleToCurrencyChange} toCurrency = {toCurrency} />
 
         {/* show conversion result in the UI if available */}
         {
@@ -134,4 +132,4 @@ function ConverttFormParent() {
   )
 }
 
-export default ConverttFormParent
+export default CurrencyConverter

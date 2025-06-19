@@ -1,4 +1,4 @@
-import ConversionPagee from "../components/molecules/Conversion";
+import ConversionPagee from "../components/organisms/Conversion";
 
 export default function ConversionPage() {
     return (

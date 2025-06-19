@@ -1,8 +1,8 @@
 
 
-import SelectDropDown from "../atoms/SelectDropDown";
+import SelectDropDown from "../atoms/DropDown";
 
-interface ConverterFormToProps {
+interface ToCurrencySelectorProps {
     options: { label: string, value: string }[];  // Array of objects with label and value (for dropdown options)
     toCurrency: string;  // The currently selected currency
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;  // The onChange handler for the dropdown
@@ -10,7 +10,7 @@ interface ConverterFormToProps {
   }
 
 
- const ConverterFormTo: React.FC<ConverterFormToProps> =  ({options, toCurrency, onChange, disabled}) => {
+ const ToCurrencySelector: React.FC<ToCurrencySelectorProps> =  ({options, toCurrency, onChange, disabled}) => {
 
 
     return (
@@ -29,4 +29,4 @@ interface ConverterFormToProps {
     )
 }
 
-export default ConverterFormTo
+export default ToCurrencySelector

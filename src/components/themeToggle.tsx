@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "../store/themeSlice";
+import { toggleTheme } from "../features/themeSlice";
 import { RootState } from "../store/store";
 
 

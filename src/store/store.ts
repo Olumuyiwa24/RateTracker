@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 // import currencySlice from './currencySlice'
-import { currencyAPI } from './currencyAPI' // Importing the currencyAPI
-import themeSlice from './themeSlice' // Importing the themeSlice
+import { currencyAPI } from '../features/currencyAPI' // Importing the currencyAPI
+import themeSlice from '../features/themeSlice' // Importing the themeSlice
 
 
 const store = configureStore({

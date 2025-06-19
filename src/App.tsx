@@ -2,7 +2,7 @@ import { AppRouter } from './router/index.tsx'
 import './App.css'
 import { useSelector } from 'react-redux'
 import { RootState } from './store/store.ts'
-import ThemeToggle from './components/ThemeToggle.tsx'
+import ThemeToggle from './components/themeToggle.tsx'
 import { useEffect } from 'react'
 
 export default function App() {

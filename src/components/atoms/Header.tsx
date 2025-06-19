@@ -1,16 +1,25 @@
-import { SiWebmoney } from "react-icons/si";
+import { IoMdArrowDropleftCircle } from "react-icons/io";
+import { Link } from "react-router-dom";
 
-export default function Header() {
+
+export default function Conversio () {
     return (
-        <div className="flex flex-col justify-center items-center m-auto">
-      <div className="flex justify-center items-center">
-        <SiWebmoney size={20} className="text-amber-500"/>
-        <h2 className='text-4xl text-blue-700'>Xchange-<span className="text-amber-500">Lite</span></h2>
-      </div>
-      <span className="mt-4">
-        <p className="text-sm md:text-base font-serif text-black">Convert currencies.</p>
-        <p>Track rates. Make smarter decisions</p>
-      </span>
-    </div>
+        <div>
+            
+            
+            <div className="flex gap-[4px] justify-start rounded-2xl items-center p-4 ">
+                <Link to='/'>
+                <p><IoMdArrowDropleftCircle size={20} className="bg-green-500 border rounded-2xl text-white"/></p>
+                </Link>
+                <p className="text-sm">Home</p>
+                
+            </div>
+            
+            
+        <div className=" pb-2">
+            
+            <h2 className="text-xl text-emerald-600 font-serif">Converxio</h2>
+        </div>
+        </div>
     )
 }

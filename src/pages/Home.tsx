@@ -1,4 +1,4 @@
-import HeroText from "../components/molecules/HeroText"
+import HeroText from "../components/molecules/HeroSection"
 
 
 

@@ -1,4 +1,4 @@
-import { toggleTheme } from "../../store/themeSlice"
+import { toggleTheme } from "../../features/themeSlice"
 import { RootState, AppDispatch } from "../../store/store"
 import { useDispatch, useSelector } from "react-redux"
 

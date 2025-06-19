@@ -1,12 +1,12 @@
 import { RiArrowUpDownLine } from "react-icons/ri";
 
-interface LiveRateProps {
+interface SwapRateProps {
     onChange: () => void
 }
 
 
 
-function LiveRate({onChange}: LiveRateProps){
+function SwapRate({onChange}: SwapRateProps){
     return (
         <div className="bg-slate-800 p-[10px] border-0 mb-2  mt-2 rounded-2xl text-center m-auto max-w-[50px]">
             <div className="flex justify-center items-center gap-2">
@@ -16,4 +16,4 @@ function LiveRate({onChange}: LiveRateProps){
     )
 }
 
-export default LiveRate
+export default SwapRate
