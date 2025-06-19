@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import ConvertFooter from "../atoms/ConvertFooter"
-import { fetchCurrencyRates } from "../../store/currencySlice";
-import { useDispatch, useSelector } from "react-redux";
+
 import ConverterForm from "./ConverterForm";
 import ConverterFormTo from "./ConverterFormTo";
 import LiveRate from "../atoms/ConvertRate";
-import type { AppDispatch } from "../../store/store";
-import type { RootState } from "../../store/store";
+
+import { formatCurrency } from "../../utils/exchange" //// Importing the toMoney function to format the converted amount
+import { useGetRatesQuery } from "../../store/currencyAPI";
 
 
 
 
 function ConverttFormParent() {
-
-    
-
-
+ 
 
     // State to hold the amount entered by the user
     const[amount, setAmount]= useState('');
@@ -31,26 +28,10 @@ function ConverttFormParent() {
 
     const [hasConverted, setHasConverted ] = useState(false)
 
-    //state to hold amountError
-    // const [amountError, setAmountError] = useState()
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
+   
+    const { isLoading, error, data: rates } = useGetRatesQuery(fromCurrency);
 
-    //Hook to dispatch redux actions
-    const dispatch= useDispatch<AppDispatch>()
-
-    //Selecting rates and status from Redux store using the useSelector hook
-    const {rates, status} = useSelector((state: RootState) => state.currency)
-    // console.log('rates.redux', rates);
-
-    // Fetch currency rates when component mounts or fromCurrency changes
-    useEffect(() => {
-        dispatch(fetchCurrencyRates(fromCurrency))
-    }, [dispatch, fromCurrency])
-
-    // set default base currency when rates are fetched
-    useEffect(() => {
-        if(rates&& Object.keys(rates).length > 0) {
-            setFromCurrency(Object.keys(rates)[0])
-    }},[rates])
 
     // dropdown options for the select components
    const currencyOptions = Object.keys(rates || {}).map((currency) => ({
@@ -113,24 +94,37 @@ function ConverttFormParent() {
 
    //disable convert button/component
    const convertButtonDisabled =
-  !amount || isNaN(Number(amount)) || !fromCurrency || !toCurrency || fromCurrency === toCurrency || status === 'failed';
+  !amount || isNaN(Number(amount)) || !fromCurrency || !toCurrency || fromCurrency === toCurrency || !!error;
 
 
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
  
   return (
     <div>
-        {/* {status === 'loading' && <p>Fetching currency rates...</p>} */}
-        {status === 'failed' && <p>Failed to load rates</p>}
+        {isLoading && <p>Fetching currency rates...</p>}
+        {error && <p>Failed to load rates</p>}
+        {!isOnline && <p>You are offline. Some features may not work.</p>}
         
-        <ConverterForm amount = {amount} onChangeAmount = {handleAmount} onChange = {handleFromCurrencyChange} fromCurrency= {fromCurrency} options = {currencyOptions}/>
+        <ConverterForm amount = {amount} onChangeAmount = {handleAmount} disabled={!!error} onChange = {handleFromCurrencyChange} fromCurrency= {fromCurrency} options = {currencyOptions}/>
         <LiveRate onChange = {handleSwap}/>
-        <ConverterFormTo options = {currencyOptions} onChange = {handleToCurrencyChange} toCurrency = {toCurrency} />
+        <ConverterFormTo options = {currencyOptions} disabled={!!error} onChange = {handleToCurrencyChange} toCurrency = {toCurrency} />
 
         {/* show conversion result in the UI if available */}
         {
-            convertedAmount !== null && hasConverted && status !== 'failed' && (
+            convertedAmount !== null && hasConverted && !error && (
                 <div className="font-mono p-2 text-green-300 bg-black rounded-lg focus:ring mx-2 my-2">
-                    {amount} {fromCurrency} = {toMoney(convertedAmount)} {toCurrency}
+                    {amount} {fromCurrency} = {formatCurrency(convertedAmount)} {toCurrency}
                 </div>
             )
         }
@@ -141,15 +135,3 @@ function ConverttFormParent() {
 }
 
 export default ConverttFormParent
-
-//new addition to format the converted amount to money
-const toMoney = (value: string | number) => {
-    const numValue = typeof value === 'string' ? parseFloat(value) : value;
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'NGN',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-    });
-    return formatter.format(numValue).replace("NGN", "").trim();
-}

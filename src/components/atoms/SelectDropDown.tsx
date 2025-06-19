@@ -9,10 +9,13 @@ type SelectDropDownProps = {
     options: OptionType[]
     value: string
     onChange:(e: React.ChangeEvent<HTMLSelectElement>) => void
+    disabled?: boolean
+    
+    
 }
 
 
-export default function SelectDropDown ({label, id,options = [], value, onChange}: SelectDropDownProps) {
+export default function SelectDropDown ({label, id,options = [], value, onChange, disabled}: SelectDropDownProps) {
     // console.log('options:', options)
     return (
         <div className="grid min-w-[40%] sm:min-w-[40%]  md:min-w-[10%] grid-cols rounded-md relative  gap-4 bg-gray-500 mt-6 text-center">
@@ -26,6 +29,7 @@ export default function SelectDropDown ({label, id,options = [], value, onChange
                     id={id}
                     value={value}
                     onChange={onChange}
+                    disabled={disabled}
                     className=" rounded-md relative z-50 text-white font-bold mx-4 px-6 py-2 outline-0 text-sm bg-gray-500 focus:ring-2 transition duration-200 shadow-sm hover:shadow-md focus:ring-slate-500 focus:border-emerald-500 " 
                 >
                     {

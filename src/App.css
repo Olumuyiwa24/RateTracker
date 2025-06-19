@@ -16,6 +16,7 @@ body{
   background-repeat: no-repeat;
   background-position: center;
   height:100vh;
+  /* padding-top: 200px; */
 }
 
 /* @media (max-width: 800px) and (max-width: 1024px) {

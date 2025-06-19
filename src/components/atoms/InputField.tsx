@@ -4,9 +4,10 @@ type InputFieldProps = {
     id: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     placeholder?: string
+    disabled?: boolean
 }
 
-export default function InputField({label, id, value, onChange, placeholder} : InputFieldProps) {
+export default function InputField({label, id, value, onChange, placeholder, disabled} : InputFieldProps) {
     return (
         <div className="p-8   md:flex flex flex-col justify-center text-center relative top-[-50px]">
             <label htmlFor={id} className="block text-sm font-medium text-gray-800 mt-10">
@@ -19,6 +20,7 @@ export default function InputField({label, id, value, onChange, placeholder} : I
                 onChange={onChange}
                 id={id} 
                 className="w-[180px] text-sm rounded-md px-2 py-3 mt-1 outline-0 border border-gray-400"
+                disabled={disabled}
             />
         </div>
     )

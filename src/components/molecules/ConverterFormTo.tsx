@@ -6,10 +6,11 @@ interface ConverterFormToProps {
     options: { label: string, value: string }[];  // Array of objects with label and value (for dropdown options)
     toCurrency: string;  // The currently selected currency
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;  // The onChange handler for the dropdown
+    disabled?: boolean; // Optional prop to disable the dropdown    
   }
 
 
- const ConverterFormTo: React.FC<ConverterFormToProps> =  ({options, toCurrency, onChange}) => {
+ const ConverterFormTo: React.FC<ConverterFormToProps> =  ({options, toCurrency, onChange, disabled}) => {
 
 
     return (
@@ -21,6 +22,7 @@ interface ConverterFormToProps {
                     onChange={onChange}
                     value={toCurrency}
                     options={options}
+                    disabled={disabled}
                 />
             </div>
         </div>
