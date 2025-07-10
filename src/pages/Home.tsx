@@ -10,7 +10,7 @@ export function HomePage() {
         <>
    
           
-            <div className=" max-w-xl py-6 border-0 rounded-lg bg-white">
+            <div className=" max-w-xl py-6 border-0 rounded-lg bg-white mx-auto">
       
             <HeroText />
             </div>
