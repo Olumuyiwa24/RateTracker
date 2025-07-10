@@ -2,16 +2,22 @@
 
 import SelectDropDown from "../atoms/DropDown";
 
+type OptionType = {
+    label: string;
+    value: string;
+};
 interface ToCurrencySelectorProps {
     options: { label: string, value: string }[];  // Array of objects with label and value (for dropdown options)
     toCurrency: string;  // The currently selected currency
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;  // The onChange handler for the dropdown
+    onChange: (option: OptionType | null) => void;  // The onChange handler for the dropdown
     disabled?: boolean; // Optional prop to disable the dropdown    
   }
 
 
  const ToCurrencySelector: React.FC<ToCurrencySelectorProps> =  ({options, toCurrency, onChange, disabled}) => {
-
+    // Find the selected option object
+    const selectedToOption = options.find(opt => opt.value === toCurrency) || null;
+    
 
     return (
         <div>
@@ -20,9 +26,10 @@ interface ToCurrencySelectorProps {
                     label="To"
                     id="to"
                     onChange={onChange}
-                    value={toCurrency}
+                    value={selectedToOption}
                     options={options}
                     disabled={disabled}
+                    menuPlacement="bottom" // opens downward
                 />
             </div>
         </div>

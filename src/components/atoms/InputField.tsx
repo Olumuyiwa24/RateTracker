@@ -9,7 +9,7 @@ type InputFieldProps = {
 
 export default function InputField({label, id, value, onChange, placeholder, disabled} : InputFieldProps) {
     return (
-        <div className="p-8   md:flex flex flex-col justify-center text-center relative top-[-50px]">
+        <div className="p-4 flex flex-col justify-center text-center relative mt-[-30px]">
             <label htmlFor={id} className="block text-sm font-medium text-gray-800 mt-10">
                 {label}
             </label>
