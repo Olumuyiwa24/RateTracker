@@ -8,7 +8,7 @@ const ThemeToggle = () => {
     const currentTheme = useSelector((state: RootState) => state.theme.mode)
 
     return (
-        <div className="relative flex items-center justify-end p-4 sm:p-2 w-full bottom-30">
+        <div className="relative flex items-center justify-end p-4 sm:p-2 w-full bottom-40">
             <div className="flex items-center space-x-2">
             <span className="text-xs sm:text-sm text-yellow-600 dark:text-gray-100 hidden sm:inline">
                 <span className="mr-2">
