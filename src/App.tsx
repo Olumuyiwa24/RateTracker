@@ -12,7 +12,7 @@ export default function App() {
     document.body.classList.add(mode);
   }, [mode]);
   return(
-    <div className={ `${mode === 'dark' ? 'dark' : 'light'} pt-42`}>
+    <div className={ `${mode === 'dark' ? 'dark' : 'light'} pt-20`}>
       <ThemeToggle />
       <AppRouter />
     </div>
