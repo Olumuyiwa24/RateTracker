@@ -13,11 +13,7 @@ function CurrencyConverter() {
  
 
     // State to hold the amount entered by the user
-    const[amount, setAmount]= useState(() => {
-        const storedAmount = localStorage.getItem('amount');
-        return storedAmount !== null ? storedAmount : "";
-    
-    });
+    const [amount, setAmount] = useState<string>("");
 
     // State for the base currency (the one converting from)
     const[fromCurrency, setFromCurrency] = useState("USD");
@@ -25,27 +21,27 @@ function CurrencyConverter() {
     // State for the target currency (the one converting to)
     const [toCurrency, setToCurrency] = useState("NGN")
 
-    const initialResult = (() => {
-        const stored = localStorage.getItem('result');
-        return stored !== null ? JSON.parse(stored) : null;
-      })();
+    // const initialResult = (() => {
+    //     const stored = localStorage.getItem('result');
+    //     return stored !== null ? JSON.parse(stored) : null;
+    //   })();
     // State to hold the result of the conversion
-    const [convertedAmount, setConvertedAmount] = useState<number | null>(initialResult);
+    const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
 
-    const [hasConverted, setHasConverted ] = useState(Boolean(initialResult))
+    const [hasConverted, setHasConverted ] = useState(Boolean(null))
 
     const [isOnline, setIsOnline] = useState(navigator.onLine);
    
     const { isLoading, error, data: rates } = useGetRatesQuery(fromCurrency);
 
-    type LastConversion = {
-      amount: string;
-      fromCurrency: string;
-      toCurrency: string;
-      convertedAmount: number;
-    } | null;
+    // type LastConversion = {
+    //   amount: string;
+    //   fromCurrency: string;
+    //   toCurrency: string;
+    //   convertedAmount: number;
+    // } | null;
 
-    const [lastConversion, setLastConversion] = useState<LastConversion>(null);
+    // const [lastConversion, setLastConversion] = useState<LastConversion>(null);
 
 
     // dropdown options for the select components
@@ -79,17 +75,17 @@ function CurrencyConverter() {
 //     }
 //   }, [rates]);
 
-   useEffect(() => {
-    if (amount && convertedAmount) {
-      // Save to lastConversion
-      setLastConversion({
-        amount,
-        fromCurrency,
-        toCurrency,
-        convertedAmount,
-      });
-    }
-  }, [amount, convertedAmount, fromCurrency, toCurrency]);
+//    useEffect(() => {
+//     if (amount && convertedAmount) {
+//       // Save to lastConversion
+//       setLastConversion({
+//         amount,
+//         fromCurrency,
+//         toCurrency,
+//         convertedAmount,
+//       });
+//     }
+//   }, [amount, convertedAmount, fromCurrency, toCurrency]);
 
     // hook to do conversion live after the intial conversion triggered by the convert button
    useEffect(() => {
@@ -101,7 +97,7 @@ function CurrencyConverter() {
             const rate = rates[toCurrency]
             const result = parseFloat(amount) * rate
             setConvertedAmount(result)
-            localStorage.setItem('result', JSON.stringify(result)); // Store the result in localStorage
+            // localStorage.setItem('result', JSON.stringify(result)); // Store the result in localStorage
         }
    }, [amount,rates, toCurrency, hasConverted])
 
@@ -117,7 +113,7 @@ function CurrencyConverter() {
    //handler for the amount field
    const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAmount(e.target.value)
-        localStorage.setItem('amount', e.target.value); // Store the amount in localStorage
+        // localStorage.setItem('amount', e.target.value); // Store the amount in localStorage
         if (e.target.value === "") {
             setConvertedAmount(null); // Reset converted amount if input is cleared
             setHasConverted(false); // Reset conversion state
@@ -178,11 +174,9 @@ const handleFromCurrencyChange = (option: FromCurrencyChangeOption | null) => {
         
         {convertedAmount !== null && (
             <div className="font-mono p-2 text-green-300 bg-black rounded-lg focus:ring mx-2 my-2">
-                {amount
-                ? `${amount} ${fromCurrency} = ${formatCurrency(convertedAmount)} ${toCurrency}`
-                : lastConversion
-                    ? `Last conversion: ${lastConversion.amount} ${lastConversion.fromCurrency} = ${formatCurrency(lastConversion.convertedAmount)} ${lastConversion.toCurrency}` 
-                    : "no conversion yet"
+                {amount &&
+                `${amount} ${fromCurrency} = ${formatCurrency(convertedAmount)} ${toCurrency}`
+                
                 }
             </div>
         )}
