@@ -1,4 +1,5 @@
-import { AppRouter } from './router/index.tsx'
+import { router } from './router/index.tsx'
+import { RouterProvider } from 'react-router-dom'
 import './App.css'
 import { useSelector } from 'react-redux'
 import { RootState } from './store/store.ts'
@@ -14,7 +15,7 @@ export default function App() {
   return(
     <div className={ `${mode === 'dark' ? 'dark' : 'light'} pt-20`}>
       <ThemeToggle />
-      <AppRouter />
+      <RouterProvider router={router} />
     </div>
       
   )

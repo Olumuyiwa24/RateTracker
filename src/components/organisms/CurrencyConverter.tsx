@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ConvertFooter from "../atoms/Footer"
 import LiveRate from "../atoms/SwapRate";
+import { Link } from "react-router-dom";
 import { formatCurrency } from "../../utils/exchange" //// Importing the toMoney function to format the converted amount
 import { useGetRatesQuery } from "../../features/currencyAPI";
 import FromCurrencySelector from "../molecules/FromCurrencySelector";
@@ -21,10 +22,7 @@ function CurrencyConverter() {
     // State for the target currency (the one converting to)
     const [toCurrency, setToCurrency] = useState("NGN")
 
-    // const initialResult = (() => {
-    //     const stored = localStorage.getItem('result');
-    //     return stored !== null ? JSON.parse(stored) : null;
-    //   })();
+    
     // State to hold the result of the conversion
     const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
 
@@ -34,19 +32,18 @@ function CurrencyConverter() {
    
     const { isLoading, error, data: rates } = useGetRatesQuery(fromCurrency);
 
-    // type LastConversion = {
-    //   amount: string;
-    //   fromCurrency: string;
-    //   toCurrency: string;
-    //   convertedAmount: number;
-    // } | null;
+    const [showHistory, setShowHistory] = useState(false);
+    const [history, setHistory] = useState<any[]>([]);
 
-    // const [lastConversion, setLastConversion] = useState<LastConversion>(null);
+    const handleShowHistory = () => {
+        if(!showHistory) {
+            const storedHistory = JSON.parse(localStorage.getItem('conversions') || '[]');
+            setHistory(storedHistory);
+        }
+        setShowHistory(prev => !prev); 
+    }
 
-
-    // dropdown options for the select components
-    //explain this block of code below
-    // it maps through the keys of the rates object (which contains currency codes) and creates
+    
    const currencyOptions = Object.keys(rates || {}).map((currency) => ({
     label: currency,
     value: currency
@@ -61,31 +58,24 @@ function CurrencyConverter() {
         setConvertedAmount(result)
         setHasConverted(true)
 
+        const conversion = {
+            amount,
+            fromCurrency,
+            toCurrency,
+            result,
+            data: new Date().toISOString() // Adding a timestamp for the conversion
+        };
+
+        const prev = JSON.parse(localStorage.getItem('conversions') || '[]');
+
+        const updatedConversions = [...prev, conversion].slice(-5); // Keep only the last 5 conversions
+        localStorage.setItem('conversions', JSON.stringify(updatedConversions));
+
     }
     
    }
 
-//    useEffect(() => {
-//     if (rates && Object.keys(rates).length > 0) {
-//       setFromCurrency((prev) =>
-//         prev && Object.keys(rates).includes(prev)
-//           ? prev
-//           : Object.keys(rates)[0]
-//       );
-//     }
-//   }, [rates]);
 
-//    useEffect(() => {
-//     if (amount && convertedAmount) {
-//       // Save to lastConversion
-//       setLastConversion({
-//         amount,
-//         fromCurrency,
-//         toCurrency,
-//         convertedAmount,
-//       });
-//     }
-//   }, [amount, convertedAmount, fromCurrency, toCurrency]);
 
     // hook to do conversion live after the intial conversion triggered by the convert button
    useEffect(() => {
@@ -180,19 +170,29 @@ const handleFromCurrencyChange = (option: FromCurrencyChangeOption | null) => {
                 }
             </div>
         )}
-       
-        
+              
         {!hasConverted && !error && (
             <div className="text-gray-500 text-sm mx-2 my-2">
                 Enter an amount and select currencies to convert.
             </div>
         )}
 
+        {/* Button to show conversion history */}
+        <button
+            className="my-4 px-4 py-2 bg-gray-700 text-white rounded"
+            onClick={handleShowHistory}
+            >
+            <Link to="/history" >
+                View Conversion History
+                </Link>
+        </button>
+
+
         {/* Footer with the convert button */}
         <ConvertFooter onConvert = {handleConvert} disabled = {convertButtonDisabled}/>
-
-    </div>
-  )
-}
+        
+                </div>
+            )
+            }
 
 export default CurrencyConverter
