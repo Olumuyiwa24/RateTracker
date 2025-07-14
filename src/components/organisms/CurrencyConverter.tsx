@@ -32,16 +32,16 @@ function CurrencyConverter() {
    
     const { isLoading, error, data: rates } = useGetRatesQuery(fromCurrency);
 
-    const [showHistory, setShowHistory] = useState(false);
-    const [history, setHistory] = useState<any[]>([]);
+    // const [showHistory, setShowHistory] = useState(false);
+    // const [history, setHistory] = useState<any[]>([]);
 
-    const handleShowHistory = () => {
-        if(!showHistory) {
-            const storedHistory = JSON.parse(localStorage.getItem('conversions') || '[]');
-            setHistory(storedHistory);
-        }
-        setShowHistory(prev => !prev); 
-    }
+    // const handleShowHistory = () => {
+    //     if(!showHistory) {
+    //         const storedHistory = JSON.parse(localStorage.getItem('conversions') || '[]');
+    //         setHistory(storedHistory);
+    //     }
+    //     setShowHistory(prev => !prev); 
+    // }
 
     
    const currencyOptions = Object.keys(rates || {}).map((currency) => ({
@@ -180,11 +180,11 @@ const handleFromCurrencyChange = (option: FromCurrencyChangeOption | null) => {
         {/* Button to show conversion history */}
         <button
             className="my-4 px-4 py-2 bg-gray-700 text-white rounded"
-            onClick={handleShowHistory}
+            // onClick={handleShowHistory}
             >
             <Link to="/history" >
                 View Conversion History
-                </Link>
+            </Link>
         </button>
 
 
