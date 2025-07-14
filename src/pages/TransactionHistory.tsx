@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../utils/exchange";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function TransactionHistory() {
   const [history, setHistory] = useState<any[]>([]);
@@ -8,6 +10,7 @@ export default function TransactionHistory() {
   const [filtered, setFiltered] = useState<any[]>([]);
   const navigate = useNavigate();
 
+const mode = useSelector((state: RootState) => state.theme.mode)
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('conversions') || '[]');
     setHistory(stored);
@@ -38,14 +41,16 @@ export default function TransactionHistory() {
       >
         ← Back to Converter
       </button>
-      <h2 className="text-3xl font-bold mb-6 text-gray-700 dark:text-white">Last 5 Conversions</h2>
+      <h2 className={`text-3xl font-bold mb-6 text-gray-700 ${mode === "dark" ? "text-white" : "text-gray-700"}`}>Last 5 Conversions</h2>
       <input
         type="text"
         placeholder="Search by amount, currency, or result..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="mb-6 w-full max-w-md px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
+        className={`mb-6 w-full max-w-md px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+            mode === "dark" ? "bg-gray-900 text-white placeholder-gray-400" : "bg-white text-gray-900 placeholder-gray-500"
+        }`}
+        />
       {filtered.length === 0 ? (
         <div className="text-gray-400 text-center">No conversions found.</div>
       ) : (
