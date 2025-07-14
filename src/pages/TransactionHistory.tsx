@@ -8,7 +8,19 @@ export default function TransactionHistory() {
   const [history, setHistory] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const itemsPerPage = 5;
+  
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+  const paginated = filtered.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+
   const navigate = useNavigate();
+
 
 const mode = useSelector((state: RootState) => state.theme.mode)
   useEffect(() => {
@@ -32,6 +44,10 @@ const mode = useSelector((state: RootState) => state.theme.mode)
       );
     }
   }, [search, history]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -66,17 +82,37 @@ const mode = useSelector((state: RootState) => state.theme.mode)
               </tr>
             </thead>
             <tbody>
-              {filtered.map((conv, idx) => (
-                <tr key={idx} className="border-t border-gray-100 hover:bg-blue-50 transition">
-                  <td className="px-6 py-4 text-xs text-gray-500">{new Date(conv.data).toLocaleString()}</td>
-                  <td className="px-6 py-4 font-semibold text-blue-700">{conv.amount}</td>
-                  <td className="px-6 py-4">{conv.fromCurrency}</td>
-                  <td className="px-6 py-4">{conv.toCurrency}</td>
-                  <td className="px-6 py-4 font-semibold text-green-700">{formatCurrency(conv.result)}</td>
-                </tr>
-              ))}
+                {paginated.map((conv, idx) => (
+                    <tr key={idx} className="border-t border-gray-100 hover:bg-blue-50 transition">
+                    <td className="px-6 py-4 text-xs text-gray-500">{new Date(conv.data).toLocaleString()}</td>
+                    <td className="px-6 py-4 font-semibold text-blue-700">{conv.amount}</td>
+                    <td className="px-6 py-4">{conv.fromCurrency}</td>
+                    <td className="px-6 py-4">{conv.toCurrency}</td>
+                    <td className="px-6 py-4 font-semibold text-green-700">{formatCurrency(conv.result)}</td>
+                    </tr>
+                ))}
             </tbody>
+            
           </table>
+            <div className="flex justify-center items-center gap-4 mt-4">
+                <button
+                    onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1 rounded bg-gray-200 text-gray-700 disabled:opacity-50"
+                >
+                    Previous
+                </button>
+                <span className={`text-sm text-gray-600 ${mode === "dark" ? "text-white" : "text-gray-700"}`}>
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button
+                    onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-1 rounded bg-gray-200 text-gray-700 disabled:opacity-50"
+                >
+                    Next
+                </button>
+            </div>
         </div>
       )}
     </div>

@@ -68,7 +68,7 @@ function CurrencyConverter() {
 
         const prev = JSON.parse(localStorage.getItem('conversions') || '[]');
 
-        const updatedConversions = [...prev, conversion].slice(-5); // Keep only the last 5 conversions
+        const updatedConversions = [...prev, conversion]; // Keep only the last 5 conversions
         localStorage.setItem('conversions', JSON.stringify(updatedConversions));
 
     }
